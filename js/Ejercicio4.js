@@ -60,10 +60,10 @@ const p2 = new Producto(102, "Safari play", 5000);
 const p3 = new Producto(103, "War game", 7000);
 
 //Guardo en el array
-const productos = [p1, p2, p3];
+const productos= [p1, p2, p3]
 
 //Mostrar los datos de todos los productos
-document.writeln("<h2>Listado de productos</h2>");
-productos.forEach((producto) => {
-  producto.imprimeDatos();
-});
+document.writeln(`<h2>Listado de productos</h2>`)
+productos.forEach((Producto) => {
+Producto.imprimirDatos()
+})
