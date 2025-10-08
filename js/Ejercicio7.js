@@ -16,52 +16,66 @@ huecosLibres(): indica cuántos contactos más podemos ingresar.
 
 Crea un menú con opciones que serán seleccionadas por el usuario usando un prompt, las salidas de las operaciones seleccionadas por el usuario se pueden mostrar en pantalla y  por consola.*/
 
-// Clase contacto
+// Clase Contacto
 class Contacto {
-  // Propiedades privadas
-  #nombre; //nobre de contacto que es clave para comprar igualdad
-  #telefono; //
+  #nombre;
+  #telefono;
 
-  // Constructor para establecer nombre y contacto al crear el objeto
   constructor(nombre, telefono) {
-    this.#nombre = nombre; //guardo nombre
-    this.#telefono = telefono; //guardo telefonos
+    this.#nombre = nombre;
+    this.#telefono = telefono;
   }
-  //Getters para leer nombres privados
+
   get nombre() {
     return this.#nombre;
   }
+
   get telefono() {
     return this.#telefono;
   }
-  //Setters para mofificar de forma controlada
+
   set nombre(nuevoNombre) {
-    //Validacion, que tenga texto
     if (typeof nuevoNombre === "string" && nuevoNombre.trim().length > 0) {
       this.#nombre = nuevoNombre.trim();
     }
   }
+
   set telefono(nuevoTelefono) {
-    // permitimos string para soportar formatos con guiones/espacios
     if (typeof nuevoTelefono === "string" && nuevoTelefono.trim().length > 0) {
       this.#telefono = nuevoTelefono.trim();
     }
+  }
+
+  equals(otro) {
+    // verifico que "otro" sea un Contacto y tenga nombre
+    if (!(otro instanceof Contacto) || !otro.nombre) {
+      return false;
+    }
+
+    const a = this.#nombre.trim().toLowerCase();
+    const b = otro.nombre.trim().toLowerCase();
+    return a === b;
   }
 }
 
+// === PRUEBAS DEL MÉTODO EQUALS ===
+const contacto1 = new Contacto("Basilio", "12345");
+const contacto2 = new Contacto("Basilio", "12345");
+const contacto3 = new Contacto("Ornella", "99999");
+
+document.writeln(`<h3>Prueba del método equals()</h3>`);
+document.writeln(
+  `<p>¿Basilio y basilio son iguales? <b>${
+    contacto1.equals(contacto2) ? "Sí" : "No"
+  }</b></p>`
+);
+document.writeln(
+  `<p>¿Basilio y Ornella son iguales? <b>${
+    contacto1.equals(contacto3) ? "Sí" : "No"
+  }</b></p>`
+);
+
 /*
-
-
-  // Setters: permiten modificar de forma controlada
-
-  }
-  set telefono(nuevoTelefono) {
-    // permitimos string para soportar formatos con guiones/espacios
-    if (typeof nuevoTelefono === "string" && nuevoTelefono.trim().length > 0) {
-      this.#telefono = nuevoTelefono.trim();
-    }
-  }
-
   // Método equals: define igualdad de contactos por NOMBRE (ignorando mayúsc/minúsc y espacios)
   equals(otro) {
     // normalizo ambos nombres a minúsculas y sin espacios en los bordes
