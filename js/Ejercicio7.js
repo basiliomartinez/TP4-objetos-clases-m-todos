@@ -75,35 +75,24 @@ document.writeln(
   }</b></p>`
 );
 
-/*
-  // Método equals: define igualdad de contactos por NOMBRE (ignorando mayúsc/minúsc y espacios)
-  equals(otro) {
-    // normalizo ambos nombres a minúsculas y sin espacios en los bordes
-    const a = this.#nombre.trim().toLowerCase();
-    const b = otro.nombre.trim().toLowerCase();
-    return a === b; // true si los nombres coinciden
-  }
-}
-
 // =====================
 // Clase Agenda
 // =====================
 class Agenda {
   // Propiedades privadas
-  #contactos;  // array de Contacto
-  #capacidad;  // número máximo de contactos
+  #contactos; // array de Contacto
+  #capacidad; // número máximo de contactos
 
   // Constructor: recibe capacidad opcional; si no se pasa, usa 10
   constructor(capacidad = 10) {
     this.#capacidad = capacidad; // capacidad máxima
-    this.#contactos = [];        // arranca vacía
+    this.#contactos = []; // arranca vacía
   }
 
   // Getter para ver la capacidad (si hiciera falta)
   get capacidad() {
     return this.#capacidad;
   }
-
   // Método: indica si la agenda está llena (true/false)
   agendaLlena() {
     // llena si la cantidad de contactos alcanza la capacidad
@@ -114,7 +103,12 @@ class Agenda {
   huecosLibres() {
     // diferencia entre capacidad y ocupados (nunca menor que 0)
     const libres = this.#capacidad - this.#contactos.length;
-    return libres >= 0 ? libres : 0;
+    return libres >= 0 ? libres : 0; //el ? aca es un operador ternario. Sirve para escribir un if/else en una sola línea.
+    /*if (libres >= 0) {
+  return libres;
+} else {
+  return 0;
+} */
   }
 
   // Método: verifica si existe ya un contacto (por nombre)
@@ -122,14 +116,28 @@ class Agenda {
     // buscamos alguno igual (misma "clave" nombre)
     const existe = this.#contactos.some((c) => c.equals(unContacto));
     return existe; // true/false
+    /*
+this.#contactos
+Es el array privado que guarda todos los contactos ya agregados a la agenda.
+.some((c) => c.equals(unContacto))
+.some es un método de arrays que:
+Recorre los elementos uno por uno.
+Ejecuta la función que le pasás para cada elemento.
+Devuelve true apenas encuentra uno que cumpla la condición.
+Devuelve false si ninguno cumple.
+En nuestro caso la condición es:
+c.equals(unContacto)
+donde c es un contacto del array y unContacto es el que queremos verificar si ya existe.
+*/
   }
-
   // Método: añade un contacto si hay espacio y no está repetido
   aniadirContacto(unContacto) {
     // primero verificamos si la agenda está llena
     if (this.agendaLlena()) {
       // informo por pantalla y por consola
-      document.writeln(`<p>⚠️ La agenda está llena: no se puede agregar más contactos.</p>`);
+      document.writeln(
+        `<p>⚠️ La agenda está llena: no se puede agregar más contactos.</p>`
+      );
       console.log("Agenda llena: no hay espacio para agregar");
       return; // corto la ejecución
     }
@@ -143,7 +151,9 @@ class Agenda {
 
     // si todo ok, lo agregamos al array
     this.#contactos.push(unContacto);
-    document.writeln(`<p>✅ Contacto agregado: ${unContacto.nombre} (${unContacto.telefono})</p>`);
+    document.writeln(
+      `<p>✅ Contacto agregado: ${unContacto.nombre} (${unContacto.telefono})</p>`
+    );
     console.log("Contacto agregado:", unContacto);
   }
 
@@ -179,10 +189,14 @@ class Agenda {
 
     // muestro resultado
     if (encontrado) {
-      document.writeln(`<p>🔎 ${encontrado.nombre}: ${encontrado.telefono}</p>`);
+      document.writeln(
+        `<p>🔎 ${encontrado.nombre}: ${encontrado.telefono}</p>`
+      );
       console.log("Contacto encontrado:", encontrado);
     } else {
-      document.writeln(`<p>🔎 No se encontró el contacto "${nombreBuscado}".</p>`);
+      document.writeln(
+        `<p>🔎 No se encontró el contacto "${nombreBuscado}".</p>`
+      );
       console.log("Contacto no encontrado:", nombreBuscado);
     }
   }
@@ -196,6 +210,10 @@ class Agenda {
     const idx = this.#contactos.findIndex(
       (c) => c.nombre.trim().toLowerCase() === clave
     );
+    /*.findIndex(callback):
+Recorre el array de izquierda a derecha.
+Devuelve el índice del primer elemento que cumpla la condición.
+Si no encuentra, devuelve -1.*/
 
     // si lo encuentro, lo elimino con splice
     if (idx !== -1) {
@@ -205,6 +223,11 @@ class Agenda {
     } else {
       document.writeln(`<p>⚠️ No se encontró el contacto a eliminar.</p>`);
       console.log("No se eliminó: no encontrado");
+      /*idx !== -1 → lo encontró.
+.splice(idx, 1):
+Quita 1 elemento desde la posición idx.
+Devuelve un array con los eliminados (por eso [...]).
+[0] → tomamos el objeto eliminado (el primer y único). */
     }
   }
 }
@@ -298,9 +321,7 @@ while (seguir) {
     case 6: {
       // ¿Agenda llena?
       const llena = agenda.agendaLlena();
-      document.writeln(
-        `<p>¿Agenda llena? <b>${llena ? "Sí" : "No"}</b></p>`
-      );
+      document.writeln(`<p>¿Agenda llena? <b>${llena ? "Sí" : "No"}</b></p>`);
       console.log("Agenda llena:", llena);
       break;
     }
@@ -326,5 +347,3 @@ while (seguir) {
     }
   }
 }
-
-*/
